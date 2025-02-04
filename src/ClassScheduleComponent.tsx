@@ -7,6 +7,7 @@ import {
 import { endOfSchoolDay, Shift } from "./ClassScheduleUtils";
 import { getCurrentDay } from "./Workday";
 import { dima, Human, vasja } from "./Human";
+import { Classes } from "./Classes";
 
 function getSchedule(child: Human): ClassSchedule | null {
   switch (child) {
@@ -132,7 +133,7 @@ const ClassScheduleComponent = () => {
             {child &&
               getSchedule(child) &&
               getCurrentDay() &&
-              getSchedule(child)![getCurrentDay()!].map((subject, index) => (
+              getSchedule(child)![getCurrentDay()!].map((subject: Classes, index) => (
                 <li key={index}>{subject}</li>
               ))}
           </ul>

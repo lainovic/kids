@@ -7,7 +7,7 @@ export enum Workday {
 }
 
 export function getCurrentDay(): Workday | null {
-  // if today is Saturday or Sunday, return null
+  // if the day is Saturday or Sunday, return null
   const days = [
     null,
     Workday.Monday,
