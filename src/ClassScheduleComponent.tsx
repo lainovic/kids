@@ -6,7 +6,7 @@ import {
 } from "./ClassSchedules";
 import { endOfSchoolDay, Shift } from "./ClassScheduleUtils";
 import { getCurrentDay } from "./Workday";
-import { dima, Human, vasja } from "./Child";
+import { dima, Human, vasja } from "./Human";
 
 const ClassScheduleComponent = () => {
   const [child, setChild] = React.useState<Human>(vasja);
