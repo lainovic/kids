@@ -12,7 +12,7 @@ const ClassScheduleComponent = () => {
   const [child, setChild] = React.useState<Human>(vasja);
   const [shortenedClasses, setShortenedClasses] = React.useState(false);
   const [morningShift, setMorningShift] = React.useState(false);
-  const [classEndTime, setClassEndTime] = React.useState("");
+  const [schoolDayEndTime, setSchoolDayEndTime] = React.useState("");
 
   const handleNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.value;
@@ -58,12 +58,12 @@ const ClassScheduleComponent = () => {
       shortenedClasses
     );
 
-    setClassEndTime(endTime);
+    setSchoolDayEndTime(endTime);
   }, [child, shortenedClasses, morningShift]);
 
   return (
     <div>
-      <h1>Classes</h1>
+      <h1>Children Classes</h1>
       <select onChange={handleNameChange}>
         <option value="Vasja">Vasja</option>
         <option value="Dima">Dima</option>
@@ -86,7 +86,7 @@ const ClassScheduleComponent = () => {
           Morning shift
         </label>
       </div>
-      {classEndTime && <p>End of school day: {classEndTime}</p>}
+      {schoolDayEndTime && <p>End of school day: {schoolDayEndTime}</p>}
     </div>
   );
 };
