@@ -1,6 +1,6 @@
 export class Human {
   name: string;
-  nickname?: string;
+  nickname: string;
   age: number;
   birthday: Date;
   placeOfBirth: string;
@@ -8,13 +8,13 @@ export class Human {
 
   constructor(
     name: string,
-    nickname: string,
     birthday: Date,
     placeOfBirth: string,
-    children: Human[] = []
+    nickname?: string,
+    children: Human[] = [],
   ) {
     this.name = name;
-    this.nickname = nickname;
+    this.nickname = nickname ?? name;
     this.birthday = birthday;
     this.age = this.calculateAge();
     this.placeOfBirth = placeOfBirth;
@@ -51,30 +51,30 @@ export class Human {
 
 export const vasja = new Human(
   "Vasja",
-  "Vasja",
   new Date("2016-07-19T04:02:00Z"),
-  "Europe/Belgrade"
+  "Europe/Belgrade",
+  "Vasja",
 );
 
 export const dima = new Human(
   "Dimitrije",
-  "Dima",
   new Date("2014-05-05T04:55:00Z"),
-  "Europe/Belgrade"
+  "Europe/Belgrade",
+  "Dima",
 );
 
 export const bokica = new Human(
   "Bojana",
-  "Bokica",
   new Date("1988-02-15T06:15:00Z"),
   "Europe/Belgrade",
+  "Bokica",
   [vasja, dima]
 );
 
 export const marko = new Human(
   "Marko",
-  "Maki",
   new Date("1986-06-27T04:15:00Z"),
   "Europe/Belgrade",
+  "Maki",
   [vasja, dima]
 );

@@ -3,9 +3,11 @@ import ClassScheduleComponent from "./ClassScheduleComponent";
 
 function App() {
   return (
-    <>
-      <ClassScheduleComponent />
-    </>
+    <div className="flex justify-center">
+      <div className="mx-auto w-fit">
+        <ClassScheduleComponent />
+      </div>
+    </div>
   );
 }
 

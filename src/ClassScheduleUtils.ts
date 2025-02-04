@@ -37,8 +37,10 @@ function calculateTotalDurationInMinutes(
 ): number {
   let totalDurationInMinutes = 0;
   classSchedule[day].forEach((_, index) => {
-    totalDurationInMinutes += index == 1 ? 20 : 5;
+    // 30 minutes for shortened classes, 45 minutes otherwise.
     totalDurationInMinutes += shortenedClasses ? 30 : 45;
+    // 20 minutes for lunch break, 5 minutes otherwise.
+    totalDurationInMinutes += index == 1 ? 20 : 5;
   });
   totalDurationInMinutes -= 5;
   return totalDurationInMinutes;
