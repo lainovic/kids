@@ -1,5 +1,5 @@
 import { ClassSchedule } from "./ClassSchedules";
-import { Workday } from "./WorkDay";
+import { Workday } from "./Workday";
 
 export enum Shift {
   Morning,

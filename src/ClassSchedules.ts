@@ -1,5 +1,5 @@
 import { DimaClasses, VasjaClasses } from "./Classes";
-import { Workday } from "./WorkDay";
+import { Workday } from "./Workday";
 
 type VasjaClassSchedule = {
   [Workday.Monday]: VasjaClasses[];

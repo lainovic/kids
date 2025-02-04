@@ -5,14 +5,14 @@ import {
   vasjaCurrentClassSchedule,
 } from "./ClassSchedules";
 import { endOfSchoolDay, Shift } from "./ClassScheduleUtils";
-import { getCurrentDay } from "./WorkDay";
+import { getCurrentDay } from "./Workday";
 import { dima, Human, vasja } from "./Child";
 
 const ClassScheduleComponent = () => {
   const [child, setChild] = React.useState<Human>(vasja);
   const [shortenedClasses, setShortenedClasses] = React.useState(false);
   const [morningShift, setMorningShift] = React.useState(false);
-  const [endTime, setEndTime] = React.useState("");
+  const [classEndTime, setClassEndTime] = React.useState("");
 
   const handleNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.value;
@@ -58,7 +58,7 @@ const ClassScheduleComponent = () => {
       shortenedClasses
     );
 
-    setEndTime(endTime);
+    setClassEndTime(endTime);
   }, [child, shortenedClasses, morningShift]);
 
   return (
@@ -86,7 +86,7 @@ const ClassScheduleComponent = () => {
           Morning shift
         </label>
       </div>
-      {endTime && <p>End of school day: {endTime}</p>}
+      {classEndTime && <p>End of school day: {classEndTime}</p>}
     </div>
   );
 };
