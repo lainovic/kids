@@ -6,19 +6,10 @@ export enum Shift {
   Afternoon,
 }
 
-function startOfSchoolDay(shift: Shift): string {
-  switch (shift) {
-    case Shift.Morning:
-      return "08:00";
-    case Shift.Afternoon:
-      return "13:30";
-  }
-}
-
 function endOfSchoolDay(
+  startOfSchoolDay: string,
   day: Workday,
   classSchedule: ClassSchedule,
-  shift: Shift,
   shortenedClasses: boolean = false
 ): string {
   let totalDurationInMinutes = calculateTotalDurationInMinutes(
@@ -27,7 +18,7 @@ function endOfSchoolDay(
     shortenedClasses
   );
 
-  return calculateEndTime(startOfSchoolDay(shift), totalDurationInMinutes);
+  return calculateEndTime(startOfSchoolDay, totalDurationInMinutes);
 }
 
 function calculateTotalDurationInMinutes(
@@ -61,4 +52,4 @@ function calculateEndTime(
   return `${endHours}:${endMinutes.toString().padStart(2, "0")}`;
 }
 
-export { startOfSchoolDay, endOfSchoolDay };
+export { endOfSchoolDay };

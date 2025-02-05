@@ -23,8 +23,23 @@ const ClassScheduleComponent = () => {
   const [child, setChild] = React.useState<Human>(vasja);
   const [shortenedClasses, setShortenedClasses] = React.useState(false);
   const [morningShift, setMorningShift] = React.useState(false);
+  const [schoolDayStartTime, setSchoolDayStartTime] = React.useState("");
   const [schoolDayEndTime, setSchoolDayEndTime] = React.useState("");
   const [show, setShow] = React.useState(true);
+  const [preClass, setPreClass] = React.useState(false);
+
+  const startOfSchoolDay = (shift: Shift): string => {
+    switch (shift) {
+      case Shift.Morning:
+        return "08:00";
+      case Shift.Afternoon:
+        if (preClass) {
+          return "12:45";
+        } else {
+          return "13:30";
+        }
+    }
+  }
 
   const handleNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.value;
@@ -48,11 +63,15 @@ const ClassScheduleComponent = () => {
     setMorningShift(event.target.checked);
   };
 
-  const animateTimeChange = (time: string) => {
+  const handlePreClassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPreClass(event.target.checked);
+  };
+
+  const animateChange = (value: string, block: (value: string) => void) => {
     setShow(false); // Start fade-out
 
     setTimeout(() => {
-      setSchoolDayEndTime(time);
+      block(value);
       setShow(true);
     }, 300);
   };
@@ -72,15 +91,18 @@ const ClassScheduleComponent = () => {
 
     const currentShift = morningShift ? Shift.Morning : Shift.Afternoon;
 
+    const startTime = startOfSchoolDay(currentShift);
+
     const endTime = endOfSchoolDay(
+      startTime,
       currentDay,
       schedule,
-      currentShift,
       shortenedClasses
     );
 
-    animateTimeChange(endTime);
-  }, [child, shortenedClasses, morningShift]);
+    animateChange(startTime, setSchoolDayStartTime);
+    animateChange(endTime, setSchoolDayEndTime);
+  }, [child, shortenedClasses, morningShift, preClass]);
 
   return (
     <div
@@ -103,6 +125,15 @@ const ClassScheduleComponent = () => {
           <label className="block">
             <input
               type="checkbox"
+              className="mr-2 !important"
+              checked={preClass}
+              onChange={handlePreClassChange}
+            />
+            Pre-class
+          </label>
+          <label className="block">
+            <input
+              type="checkbox"
               className="mr-2"
               checked={shortenedClasses}
               onChange={handleCheckboxChange}
@@ -121,10 +152,28 @@ const ClassScheduleComponent = () => {
         </div>
       </div>
       <div className="p-4 bg-white rounded-xl shadow-md">
+      {schoolDayStartTime && (
+          <p className="text-2xl font-bold text-gray-700">
+            <div className="text-gray-700">Start of school day</div>
+            <div
+              className={`text-red-600/75 transition-opacity duration-500 ${
+                show ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {schoolDayStartTime}
+            </div>
+          </p>
+        )}
         {schoolDayEndTime && (
           <p className="text-2xl font-bold text-gray-700">
             <div className="text-gray-700">End of school day</div>
-            <div className={`text-red-600/75 transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>{schoolDayEndTime}</div>
+            <div
+              className={`text-red-600/75 transition-opacity duration-500 ${
+                show ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {schoolDayEndTime}
+            </div>
           </p>
         )}
         <div className="p-4">
@@ -133,9 +182,9 @@ const ClassScheduleComponent = () => {
             {child &&
               getSchedule(child) &&
               getCurrentDay() &&
-              getSchedule(child)![getCurrentDay()!].map((subject: Classes, index) => (
-                <li key={index}>{subject}</li>
-              ))}
+              getSchedule(child)![getCurrentDay()!].map(
+                (subject: Classes, index) => <li key={index}>{subject}</li>
+              )}
           </ul>
         </div>
       </div>
