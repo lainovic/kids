@@ -19,7 +19,12 @@ function getSchedule(child: Human): ClassSchedule | null {
   return null;
 }
 
-const ClassScheduleComponent = () => {
+interface ClassScheduleComponentProps {
+  setTime: (value: string) => void;
+}
+const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
+  setTime,
+}) => {
   const [child, setChild] = React.useState<Human>(vasja);
   const [shortenedClasses, setShortenedClasses] = React.useState(false);
   const [morningShift, setMorningShift] = React.useState(false);
@@ -100,6 +105,7 @@ const ClassScheduleComponent = () => {
       shortenedClasses
     );
 
+    setTime(endTime);
     animateChange(startTime, setSchoolDayStartTime);
     animateChange(endTime, setSchoolDayEndTime);
   }, [child, shortenedClasses, morningShift, preClass]);
