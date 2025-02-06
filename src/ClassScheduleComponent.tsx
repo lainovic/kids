@@ -183,13 +183,20 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
             </p>
           )}
           <div className="p-4">
-            <p className="text-xl font-bold">Today's Schedule</p>
-            <ul>
+            <p className="text-xl font-bold mb-2">Today's Schedule</p>
+            <ul className="list-item list-inside">
               {child &&
                 getSchedule(child) &&
                 getCurrentDay() &&
                 getSchedule(child)![getCurrentDay()!].map(
-                  (subject: Classes, index) => <li key={index}>{subject}</li>
+                  (subject: Classes, index) => (
+                    <li
+                      key={index}
+                      className="text-pretty text-lg text-gray-700 py-1 px-2 bg-white rounded shadow-sm mb-2"
+                    >
+                      {subject}
+                    </li>
+                  )
                 )}
             </ul>
           </div>
