@@ -39,7 +39,7 @@ const ClassScheduleComponent = () => {
           return "13:30";
         }
     }
-  }
+  };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.value;
@@ -110,82 +110,83 @@ const ClassScheduleComponent = () => {
         flex flex-row justify-center items-start gap-4 
       "
     >
-      <div className="p-4 bg-white rounded-xl shadow-md">
-        <h1 className="text-xl font-bold">Class Schedule</h1>
-        <div className="space-y-2">
-          <label className="block">
-            <select
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              onChange={handleNameChange}
-            >
-              <option value={vasja.name}>{vasja.nickname}</option>
-              <option value={dima.name}>{dima.nickname}</option>
-            </select>
-          </label>
-          <label className="block">
-            <input
-              type="checkbox"
-              className="mr-2 !important"
-              checked={preClass}
-              onChange={handlePreClassChange}
-            />
-            Pre-class
-          </label>
-          <label className="block">
-            <input
-              type="checkbox"
-              className="mr-2"
-              checked={shortenedClasses}
-              onChange={handleCheckboxChange}
-            />
-            Shortened Classes
-          </label>
-          <label className="block">
-            <input
-              type="checkbox"
-              className="mr-2 !important"
-              checked={morningShift}
-              onChange={handleMorningShiftChange}
-            />
-            Morning Shift
-          </label>
+      <div className="flex flex-row items-center gap-4 p-5 bg-gray-100 rounded-lg shadow-md">
+        <div className="flex items-center gap-2">
+          <div className="space-y-2">
+            <label className="block">
+              <select
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={handleNameChange}
+              >
+                <option value={vasja.name}>{vasja.nickname}</option>
+                <option value={dima.name}>{dima.nickname}</option>
+              </select>
+            </label>
+            <label className="block">
+              <input
+                type="checkbox"
+                className="mr-2 !important"
+                checked={preClass}
+                onChange={handlePreClassChange}
+              />
+              Pre-class
+            </label>
+            <label className="block">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={shortenedClasses}
+                onChange={handleCheckboxChange}
+              />
+              Shortened Classes
+            </label>
+            <label className="block">
+              <input
+                type="checkbox"
+                className="mr-2 !important"
+                checked={morningShift}
+                onChange={handleMorningShiftChange}
+              />
+              Morning Shift
+            </label>
+          </div>
         </div>
-      </div>
-      <div className="p-4 bg-white rounded-xl shadow-md">
-      {schoolDayStartTime && (
-          <p className="text-2xl font-bold text-gray-700">
-            <div className="text-gray-700">Start of school day</div>
-            <div
-              className={`text-red-600/75 transition-opacity duration-500 ${
-                show ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {schoolDayStartTime}
-            </div>
-          </p>
-        )}
-        {schoolDayEndTime && (
-          <p className="text-2xl font-bold text-gray-700">
-            <div className="text-gray-700">End of school day</div>
-            <div
-              className={`text-red-600/75 transition-opacity duration-500 ${
-                show ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {schoolDayEndTime}
-            </div>
-          </p>
-        )}
-        <div className="p-4">
-          <p className="text-xl font-bold">Today's Schedule</p>
-          <ul>
-            {child &&
-              getSchedule(child) &&
-              getCurrentDay() &&
-              getSchedule(child)![getCurrentDay()!].map(
-                (subject: Classes, index) => <li key={index}>{subject}</li>
-              )}
-          </ul>
+        <div className="p-4 bg-white rounded-xl shadow-md">
+          {schoolDayStartTime && (
+            <p className="text-2xl font-bold text-gray-700">
+              <div className="text-gray-700">Start of school day</div>
+              <div
+                className={`text-red-600/75 transition-opacity duration-500 ${
+                  show ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {schoolDayStartTime}
+              </div>
+            </p>
+          )}
+          {schoolDayEndTime && (
+            <p className="text-2xl font-bold text-gray-700">
+              <div className="text-gray-700">End of school day</div>
+              <div
+                className={`text-red-600/75 transition-opacity duration-500 ${
+                  show ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {schoolDayEndTime}
+              </div>
+            </p>
+          )}
+          <div className="p-4">
+            <p className="text-xl font-bold">Today's Schedule</p>
+            <ul>
+              {child &&
+                getSchedule(child) &&
+                getCurrentDay() &&
+                getSchedule(child)![getCurrentDay()!].map(
+                  (subject: Classes, index) => <li key={index}>{subject}</li>
+                )}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
