@@ -17,20 +17,23 @@ const PushNotificationButton: React.FC<PushNotificationButtonProps> = ({
       return;
     }
 
-    const calculateDelay = (notificationTime: string) => {
+    const calculateDelay = (endTIme: string) => {
       const now = new Date();
-      const [hours, minutes] = notificationTime.split(":");
-      const notification = new Date();
-      notification.setHours(parseInt(hours, 10));
-      notification.setMinutes(parseInt(minutes, 10));
-      notification.setSeconds(0);
-      if (notification < now) {
+      const [hours, minutes] = endTIme.split(":");
+      const end = new Date();
+      end.setHours(parseInt(hours, 10));
+      end.setMinutes(parseInt(minutes, 10));
+      end.setSeconds(0);
+      if (end < now) {
         toast.info("The classes are over for today.");
         return -1;
       }
 
-      toast.success(`Notification set to ${notification}`);
-      return notification.getTime() - now.getTime();
+      toast.success(`Notification set to ${end}`);
+      // notify 30 minutes before the end of the school day
+      const notificationTime =
+        end.getTime() - now.getTime() - 30 * 60 * 1000;
+      return notificationTime;
     };
 
     Notification.requestPermission()

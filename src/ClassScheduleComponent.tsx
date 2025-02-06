@@ -32,6 +32,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
   const [schoolDayEndTime, setSchoolDayEndTime] = React.useState("");
   const [show, setShow] = React.useState(true);
   const [preClass, setPreClass] = React.useState(false);
+  const [selectedDay, setSelectedDay] = React.useState<string>(getCurrentDay() || "Monday");
 
   const startOfSchoolDay = (shift: Shift): string => {
     switch (shift) {
@@ -56,6 +57,10 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
         setChild(dima);
         break;
     }
+  };
+
+  const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDay(event.target.value);
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +131,21 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
               >
                 <option value={vasja.name}>{vasja.nickname}</option>
                 <option value={dima.name}>{dima.nickname}</option>
+              </select>
+            </label>
+            <label className="block">
+              <select
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                value={selectedDay}
+                onChange={handleDayChange}
+                onChange={() => {}}
+              >
+                // select a day in a week
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
               </select>
             </label>
             <label className="block">
