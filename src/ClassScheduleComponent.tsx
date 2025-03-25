@@ -5,7 +5,7 @@ import {
   vasjaCurrentClassSchedule,
 } from "./ClassSchedules";
 import { endOfSchoolDay, Shift } from "./ClassScheduleUtils";
-import { getCurrentDay } from "./Workday";
+import { getCurrentDay, isSchoolDay, toWorkDay, Workday } from "./Workday";
 import { dima, Human, vasja } from "./Human";
 import { Classes } from "./Classes";
 
@@ -18,6 +18,8 @@ function getSchedule(child: Human): ClassSchedule | null {
   }
   return null;
 }
+
+const NOT_SCHOOL_DAY = "Not a school day";
 
 interface ClassScheduleComponentProps {
   setTime: (value: string) => void;
@@ -32,7 +34,9 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
   const [schoolDayEndTime, setSchoolDayEndTime] = React.useState("");
   const [show, setShow] = React.useState(true);
   const [preClass, setPreClass] = React.useState(false);
-  const [selectedDay, setSelectedDay] = React.useState<string>(getCurrentDay() || "Monday");
+  const [selectedDay, setSelectedDay] = React.useState<string>(
+    getCurrentDay() || NOT_SCHOOL_DAY
+  );
 
   const startOfSchoolDay = (shift: Shift): string => {
     switch (shift) {
@@ -133,21 +137,23 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
                 <option value={dima.name}>{dima.nickname}</option>
               </select>
             </label>
-            <label className="block">
-              <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                value={selectedDay}
-                onChange={handleDayChange}
-                onChange={() => {}}
-              >
-                // select a day in a week
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-              </select>
-            </label>
+            {selectedDay === NOT_SCHOOL_DAY ? (
+              <p className="text-red-500">Today is not a school day</p>
+            ) : (
+              <label className="block">
+                <select
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  value={selectedDay}
+                  onChange={handleDayChange}
+                >
+                  <option value={Workday.Monday}>{Workday.Monday}</option>
+                  <option value={Workday.Tuesday}>{Workday.Tuesday}</option>
+                  <option value={Workday.Wednesday}>{Workday.Wednesday}</option>
+                  <option value={Workday.Thursday}>{Workday.Thursday}</option>
+                  <option value={Workday.Friday}>{Workday.Friday}</option>
+                </select>
+              </label>
+            )}
             <label className="block">
               <input
                 type="checkbox"
@@ -203,12 +209,11 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
             </p>
           )}
           <div className="p-4">
-            <p className="text-xl font-bold mb-2">Today's Schedule</p>
             <ul className="list-item list-inside">
               {child &&
                 getSchedule(child) &&
-                getCurrentDay() &&
-                getSchedule(child)![getCurrentDay()!].map(
+                isSchoolDay(selectedDay) &&
+                getSchedule(child)![toWorkDay(selectedDay)!].map(
                   (subject: Classes, index) => (
                     <li
                       key={index}
@@ -216,7 +221,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
                     >
                       {subject}
                     </li>
-                  )
+                    )
                 )}
             </ul>
           </div>

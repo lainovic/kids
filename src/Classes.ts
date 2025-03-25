@@ -17,6 +17,7 @@ export enum DimaClasses {
   English = "English",
   PhysicalEducation = "Physical Education",
   CivilReligiousEducation = "Civil/Religious Education",
+  ClassMeeting = "Class Meeting",
   DigitalEducation = "Digital Education",
   Art = "Art",
   Music = "Music",

@@ -72,7 +72,7 @@ export const dimaCurrentClassSchedule: DimaClassSchedule = {
     DimaClasses.Serbian,
     DimaClasses.Math,
     DimaClasses.Music,
-    DimaClasses.PhysicalEducation,
+    DimaClasses.ClassMeeting,
   ],
   Thursday: [
     DimaClasses.DigitalEducation,
@@ -86,5 +86,6 @@ export const dimaCurrentClassSchedule: DimaClassSchedule = {
     DimaClasses.CivilReligiousEducation,
     DimaClasses.Serbian,
     DimaClasses.Math,
+    DimaClasses.PhysicalEducation,
   ],
 };
