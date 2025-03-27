@@ -61,7 +61,7 @@ const PushNotificationButton: React.FC<PushNotificationButtonProps> = ({
 
   return (
     <button
-      className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded w-fit shadow"
+      className="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-md shadow hover:bg-indigo-600 transition duration-300"
       onClick={handleNotificationClick}
     >
       {text}

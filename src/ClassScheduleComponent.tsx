@@ -122,13 +122,14 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
   return (
     <div
       className="
-        flex flex-row justify-center items-start gap-4 
+        flex flex-row justify-center items-start gap-4 mb-4
       "
     >
       <div className="flex flex-row items-center gap-4 p-5 bg-gray-100 rounded-lg shadow-md">
         <div className="flex items-center gap-2">
           <div className="space-y-2">
             <label className="block">
+              <span className="text-gray-700 font-medium">Select a child</span>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={handleNameChange}
@@ -140,9 +141,10 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
             {selectedDay === NOT_SCHOOL_DAY ? (
               <p className="text-red-500">Today is not a school day</p>
             ) : (
-              <label className="block">
+              <label className="block mb-4">
+                <span className="text-gray-700 font-medium">Select a Day</span>
                 <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   value={selectedDay}
                   onChange={handleDayChange}
                 >
@@ -154,7 +156,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
                 </select>
               </label>
             )}
-            <label className="block">
+            <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 className="mr-2 !important"
@@ -163,7 +165,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
               />
               Pre-class
             </label>
-            <label className="block">
+            <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 className="mr-2"
@@ -172,7 +174,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
               />
               Shortened Classes
             </label>
-            <label className="block">
+            <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 className="mr-2 !important"
@@ -208,8 +210,8 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
               </div>
             </p>
           )}
-          <div className="p-4">
-            <ul className="list-item list-inside">
+          <div className="p-6 bg-white rounded-lg shadow-md w-full max-w-2xl">
+            <ul className="list-inside space-y-2">
               {child &&
                 getSchedule(child) &&
                 isSchoolDay(selectedDay) &&
@@ -221,7 +223,7 @@ const ClassScheduleComponent: React.FC<ClassScheduleComponentProps> = ({
                     >
                       {subject}
                     </li>
-                    )
+                  )
                 )}
             </ul>
           </div>

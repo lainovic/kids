@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   const [schoolDayEndTime, setSchoolDayEndTime] = React.useState<string>("");
   return (
-    <div className="flex flex-col justify-center h-screen gap-4 items-center">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
       <ClassScheduleComponent setTime={setSchoolDayEndTime} />
       <PushNotificationButton
         notificationTime={schoolDayEndTime}
